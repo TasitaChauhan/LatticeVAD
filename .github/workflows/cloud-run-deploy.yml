@@ -1,0 +1,41 @@
+name: Build and Deploy to Cloud Run
+
+on:
+  push:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v1
+        with:
+          credentials_json: ${{ secrets.GCP_SA_KEY }}
+
+      - name: Set up Cloud SDK
+        uses: google-github-actions/setup-gcloud@v1
+        with:
+          project_id: ${{ secrets.GCP_PROJECT }}
+
+      - name: Build container image
+        run: |
+          IMAGE=gcr.io/${{ secrets.GCP_PROJECT }}/latticevad-api:${{ github.sha }}
+          gcloud builds submit --tag $IMAGE
+          echo "IMAGE=$IMAGE" >> $GITHUB_ENV
+
+      - name: Deploy to Cloud Run
+        run: |
+          gcloud run deploy latticevad-api \
+            --image $IMAGE \
+            --region ${REGION:-us-central1} \
+            --platform managed \
+            --allow-unauthenticated \
+            --set-env-vars VALID_API_KEYS="${{ secrets.VALID_API_KEYS }}",CORS_ORIGINS="${{ secrets.CORS_ORIGINS }}"

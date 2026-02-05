@@ -1,0 +1,11 @@
+__pycache__/
+*.pyc
+.env
+.env.*
+.git
+.gitignore
+.local
+.vscode
+node_modules/
+*.egg-info
+*** End Patch

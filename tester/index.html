@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>LatticeVAD — Endpoint Tester</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>AI-Generated Voice Detection — API Endpoint Tester</h1>
+
+    <section class="panel">
+      <h2>Headers</h2>
+      <label class="label">x-api-key *</label>
+      <input id="apiKey" placeholder="Enter x-api-key" />
+    </section>
+
+    <section class="panel">
+      <label class="label">Endpoint URL *</label>
+      <input id="endpoint" placeholder="https://your-service.run.app/api/voice-detection" />
+
+      <h3>Request Body</h3>
+      <label class="label">Language *</label>
+      <input id="language" placeholder="Enter language (English)" />
+
+      <label class="label">Audio Format *</label>
+      <input id="audioFormat" value="mp3" />
+
+      <label class="label">Audio Base64 Format *</label>
+      <textarea id="audioBase64" placeholder="Enter audio base64 format"></textarea>
+
+      <div class="actions">
+        <button id="testBtn">Test Endpoint</button>
+        <button id="clearBtn" class="secondary">Clear</button>
+      </div>
+
+      <div id="result" class="result" aria-live="polite"></div>
+    </section>
+
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>

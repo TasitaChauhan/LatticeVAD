@@ -1,0 +1,8 @@
+
+{
+  "name": "LatticeVAD: AI Voice Forensic Lab",
+  "description": "A sophisticated AI-generated voice detection platform utilizing advanced machine learning to distinguish between human speech and synthetic audio across major Indian languages.",
+  "requestFramePermissions": [
+    "microphone"
+  ]
+}
